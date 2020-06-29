@@ -18,9 +18,9 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { PlacementArray, positionElements } from 'positioning';
-import { CalendarEvent } from 'calendar-utils';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MCCalendarEvent } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-tooltip-window',
@@ -52,7 +52,7 @@ export class CalendarTooltipWindowComponent {
 
   @Input() placement: string;
 
-  @Input() event: CalendarEvent;
+  @Input() event: MCCalendarEvent;
 
   @Input() customTemplate: TemplateRef<any>;
 }
@@ -67,7 +67,7 @@ export class CalendarTooltipDirective implements OnDestroy, OnChanges {
 
   @Input('tooltipTemplate') customTemplate: TemplateRef<any>; // tslint:disable-line no-input-rename
 
-  @Input('tooltipEvent') event: CalendarEvent; // tslint:disable-line no-input-rename
+  @Input('tooltipEvent') event: MCCalendarEvent; // tslint:disable-line no-input-rename
 
   @Input('tooltipAppendToBody') appendToBody: boolean; // tslint:disable-line no-input-rename
 

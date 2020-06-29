@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { CalendarEvent } from 'calendar-utils';
+import { MCCalendarEvent } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-event-title',
@@ -23,7 +23,7 @@ import { CalendarEvent } from 'calendar-utils';
   `,
 })
 export class CalendarEventTitleComponent {
-  @Input() event: CalendarEvent;
+  @Input() event: MCCalendarEvent;
 
   @Input() customTemplate: TemplateRef<any>;
 

@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { DragAndDropModule } from 'angular-draggable-droppable';
-import { CalendarMonthViewComponent } from './calendar-month-view.component';
-import { CalendarMonthViewHeaderComponent } from './calendar-month-view-header.component';
-import { CalendarMonthCellComponent } from './calendar-month-cell.component';
-import { CalendarOpenDayEventsComponent } from './calendar-open-day-events.component';
 import { CalendarCommonModule } from '../common/calendar-common.module';
+import { CalendarMonthCellComponent } from './calendar-month-cell.component';
+import { CalendarMonthViewHeaderComponent } from './calendar-month-view-header.component';
+import { CalendarMonthViewComponent } from './calendar-month-view.component';
+import { CalendarOpenDayEventsComponent } from './calendar-open-day-events.component';
 
+export { MCMonthViewDay as CalendarMonthViewDay } from '../../utilities/mc-calendar-utils';
 export {
-  CalendarMonthViewComponent,
   CalendarMonthViewBeforeRenderEvent,
-  CalendarMonthViewEventTimesChangedEvent,
+  CalendarMonthViewComponent,
+  CalendarMonthViewEventTimesChangedEvent
 } from './calendar-month-view.component';
-export { MonthViewDay as CalendarMonthViewDay } from 'calendar-utils';
 export { collapseAnimation } from './calendar-open-day-events.component';
 
 @NgModule({
@@ -31,4 +31,4 @@ export { collapseAnimation } from './calendar-open-day-events.component';
     CalendarMonthViewHeaderComponent,
   ],
 })
-export class CalendarMonthModule {}
+export class CalendarMonthModule { }

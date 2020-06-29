@@ -5,8 +5,8 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { WeekDay } from 'calendar-utils';
 import { trackByWeekDayHeaderDate } from '../common/util';
+import { MCWeekDay } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-month-view-header',
@@ -51,7 +51,7 @@ import { trackByWeekDayHeaderDate } from '../common/util';
   `,
 })
 export class CalendarMonthViewHeaderComponent {
-  @Input() days: WeekDay[];
+  @Input() days: MCWeekDay[];
 
   @Input() locale: string;
 

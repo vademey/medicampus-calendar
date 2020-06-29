@@ -1,24 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ResizableModule } from 'angular-resizable-element';
+import { NgModule } from '@angular/core';
 import { DragAndDropModule } from 'angular-draggable-droppable';
-import { CalendarWeekViewComponent } from './calendar-week-view.component';
-import { CalendarWeekViewHeaderComponent } from './calendar-week-view-header.component';
-import { CalendarWeekViewEventComponent } from './calendar-week-view-event.component';
+import { ResizableModule } from 'angular-resizable-element';
 import { CalendarCommonModule } from '../common/calendar-common.module';
-import { CalendarWeekViewHourSegmentComponent } from './calendar-week-view-hour-segment.component';
 import { CalendarWeekViewCurrentTimeMarkerComponent } from './calendar-week-view-current-time-marker.component';
+import { CalendarWeekViewEventComponent } from './calendar-week-view-event.component';
+import { CalendarWeekViewHeaderComponent } from './calendar-week-view-header.component';
+import { CalendarWeekViewHourSegmentComponent } from './calendar-week-view-hour-segment.component';
+import { CalendarWeekViewComponent } from './calendar-week-view.component';
 
 export {
-  CalendarWeekViewComponent,
-  CalendarWeekViewBeforeRenderEvent,
-} from './calendar-week-view.component';
-export {
-  WeekViewAllDayEvent as CalendarWeekViewAllDayEvent,
-  WeekViewAllDayEventRow as CalendarWeekViewAllDayEventRow,
-  GetWeekViewArgs as CalendarGetWeekViewArgs,
-} from 'calendar-utils';
+  MCGetWeekViewArgs as CalendarGetWeekViewArgs,
+  MCWeekViewAllDayEvent as CalendarWeekViewAllDayEvent,
+  MCWeekViewAllDayEventRow as CalendarWeekViewAllDayEventRow
+} from '../../utilities/mc-calendar-utils';
 export { getWeekViewPeriod } from '../common/util';
+export { CalendarWeekViewBeforeRenderEvent, CalendarWeekViewComponent } from './calendar-week-view.component';
 
 @NgModule({
   imports: [
@@ -44,4 +41,4 @@ export { getWeekViewPeriod } from '../common/util';
     CalendarWeekViewCurrentTimeMarkerComponent,
   ],
 })
-export class CalendarWeekModule {}
+export class CalendarWeekModule { }

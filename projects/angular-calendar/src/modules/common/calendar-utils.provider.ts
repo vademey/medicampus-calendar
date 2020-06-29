@@ -1,30 +1,20 @@
 import { Injectable } from '@angular/core';
-import {
-  GetMonthViewArgs,
-  MonthView,
-  GetWeekViewHeaderArgs,
-  WeekDay,
-  GetWeekViewArgs,
-  WeekView,
-  getMonthView,
-  getWeekViewHeader,
-  getWeekView,
-} from 'calendar-utils';
+import { getMonthView, getWeekView, getWeekViewHeader, MCGetMonthViewArgs, MCGetWeekViewArgs, MCGetWeekViewHeaderArgs, MCMonthView, MCWeekDay, MCWeekView } from '../../utilities/mc-calendar-utils';
 import { DateAdapter } from '../../date-adapters/date-adapter';
 
 @Injectable()
 export class CalendarUtils {
-  constructor(protected dateAdapter: DateAdapter) {}
+  constructor(protected dateAdapter: DateAdapter) { }
 
-  getMonthView(args: GetMonthViewArgs): MonthView {
+  getMonthView(args: MCGetMonthViewArgs): MCMonthView {
     return getMonthView(this.dateAdapter, args);
   }
 
-  getWeekViewHeader(args: GetWeekViewHeaderArgs): WeekDay[] {
+  getWeekViewHeader(args: MCGetWeekViewHeaderArgs): MCWeekDay[] {
     return getWeekViewHeader(this.dateAdapter, args);
   }
 
-  getWeekView(args: GetWeekViewArgs): WeekView {
+  getWeekView(args: MCGetWeekViewArgs): MCWeekView {
     return getWeekView(this.dateAdapter, args);
   }
 }

@@ -5,9 +5,9 @@ import {
   EventEmitter,
   TemplateRef,
 } from '@angular/core';
-import { MonthViewDay, CalendarEvent } from 'calendar-utils';
 import { isWithinThreshold, trackByEventId } from '../common/util';
 import { PlacementArray } from 'positioning';
+import { MCMonthViewDay, MCCalendarEvent } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-month-cell',
@@ -103,9 +103,9 @@ import { PlacementArray } from 'positioning';
   },
 })
 export class CalendarMonthCellComponent {
-  @Input() day: MonthViewDay;
+  @Input() day: MCMonthViewDay;
 
-  @Input() openDay: MonthViewDay;
+  @Input() openDay: MCMonthViewDay;
 
   @Input() locale: string;
 
@@ -124,7 +124,7 @@ export class CalendarMonthCellComponent {
   @Output() unhighlightDay: EventEmitter<any> = new EventEmitter();
 
   @Output() eventClicked = new EventEmitter<{
-    event: CalendarEvent;
+    event: MCCalendarEvent;
     sourceEvent: MouseEvent;
   }>();
 

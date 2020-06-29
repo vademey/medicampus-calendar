@@ -1,14 +1,14 @@
 import {
   Component,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
-import { CalendarEvent } from 'calendar-utils';
+import { PlacementArray } from 'positioning';
+import { MCCalendarEvent } from '../../utilities/mc-calendar-utils';
 import { Subject } from 'rxjs';
 import { CalendarEventTimesChangedEvent } from '../common/calendar-event-times-changed-event.interface';
-import { PlacementArray } from 'positioning';
 import { CalendarWeekViewBeforeRenderEvent } from '../week/calendar-week.module';
 
 export type CalendarDayViewBeforeRenderEvent = CalendarWeekViewBeforeRenderEvent;
@@ -68,7 +68,7 @@ export class CalendarDayViewComponent {
    * An array of events to display on view
    * The schema is available here: https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
    */
-  @Input() events: CalendarEvent[] = [];
+  @Input() events: MCCalendarEvent[] = [];
 
   /**
    * The number of segments in an hour. Must be <= 6
@@ -175,7 +175,7 @@ export class CalendarDayViewComponent {
    * Called when an event title is clicked
    */
   @Output() eventClicked = new EventEmitter<{
-    event: CalendarEvent;
+    event: MCCalendarEvent;
   }>();
 
   /**
