@@ -1,4 +1,4 @@
-import { MonthViewDay, CalendarEvent, EventAction } from 'calendar-utils';
+import { MCMonthViewDay, MCCalendarEvent, MCEventAction } from "../../models/mc-calendar-utils";
 
 /**
  * The parameters passed to the a11y methods.
@@ -7,7 +7,7 @@ export interface A11yParams {
   /**
    * A day in the month view
    */
-  day?: MonthViewDay;
+  day?: MCMonthViewDay;
 
   /**
    * A date
@@ -17,12 +17,12 @@ export interface A11yParams {
   /**
    * A calendar event
    */
-  event?: CalendarEvent;
+  event?: MCCalendarEvent;
 
   /**
    * Action button label e.g. 'Edit'
    */
-  action?: EventAction;
+  action?: MCEventAction;
 
   /**
    * Users preferred locale

@@ -1,11 +1,10 @@
 import {
   Component,
-  Input,
+  EventEmitter, Input,
   Output,
-  EventEmitter,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
-import { CalendarEvent, WeekDay } from 'calendar-utils';
+import { MCCalendarEvent, MCWeekDay } from '../../models/mc-calendar-utils';
 import { trackByWeekDayHeaderDate } from '../common/util';
 
 @Component({
@@ -65,19 +64,19 @@ import { trackByWeekDayHeaderDate } from '../common/util';
   `,
 })
 export class CalendarWeekViewHeaderComponent {
-  @Input() days: WeekDay[];
+  @Input() days: MCWeekDay[];
 
   @Input() locale: string;
 
   @Input() customTemplate: TemplateRef<any>;
 
   @Output() dayHeaderClicked = new EventEmitter<{
-    day: WeekDay;
+    day: MCWeekDay;
     sourceEvent: MouseEvent;
   }>();
 
   @Output() eventDropped = new EventEmitter<{
-    event: CalendarEvent;
+    event: MCCalendarEvent;
     newStart: Date;
   }>();
 

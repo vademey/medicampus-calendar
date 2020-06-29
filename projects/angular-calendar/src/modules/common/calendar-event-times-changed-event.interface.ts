@@ -1,4 +1,4 @@
-import { CalendarEvent } from 'calendar-utils';
+import { MCCalendarEvent } from '../../models/mc-calendar-utils';
 
 export enum CalendarEventTimesChangedEventType {
   Drag = 'drag',
@@ -11,7 +11,7 @@ export enum CalendarEventTimesChangedEventType {
  */
 export interface CalendarEventTimesChangedEvent<MetaType = any> {
   type: CalendarEventTimesChangedEventType;
-  event: CalendarEvent<MetaType>;
+  event: MCCalendarEvent<MetaType>;
   newStart: Date;
   newEnd?: Date;
   allDay?: boolean;

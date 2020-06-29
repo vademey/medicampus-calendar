@@ -1,16 +1,11 @@
 import {
   Component,
-  Input,
+  EventEmitter, Input,
   Output,
-  EventEmitter,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
-import {
-  WeekViewAllDayEvent,
-  WeekViewTimeEvent,
-  WeekViewHourColumn,
-} from 'calendar-utils';
 import { PlacementArray } from 'positioning';
+import { MCWeekViewAllDayEvent, MCWeekViewHourColumn, MCWeekViewTimeEvent } from '../../models/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-week-view-event',
@@ -89,7 +84,7 @@ import { PlacementArray } from 'positioning';
 export class CalendarWeekViewEventComponent {
   @Input() locale: string;
 
-  @Input() weekEvent: WeekViewAllDayEvent | WeekViewTimeEvent;
+  @Input() weekEvent: MCWeekViewAllDayEvent | MCWeekViewTimeEvent;
 
   @Input() tooltipPlacement: PlacementArray;
 
@@ -107,7 +102,7 @@ export class CalendarWeekViewEventComponent {
 
   @Input() tooltipTemplate: TemplateRef<any>;
 
-  @Input() column: WeekViewHourColumn;
+  @Input() column: MCWeekViewHourColumn;
 
   @Input() daysInWeek: number;
 

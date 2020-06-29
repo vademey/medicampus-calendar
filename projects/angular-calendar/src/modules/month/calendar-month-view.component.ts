@@ -1,44 +1,33 @@
 import {
-  Component,
-  OnChanges,
-  Input,
-  Output,
+  ChangeDetectorRef, Component,
   EventEmitter,
-  ChangeDetectorRef,
-  OnInit,
-  OnDestroy,
-  LOCALE_ID,
-  Inject,
-  TemplateRef,
+  Inject, Input,
+  LOCALE_ID, OnChanges,
+  OnDestroy, OnInit, Output,
+  TemplateRef
 } from '@angular/core';
-import {
-  CalendarEvent,
-  WeekDay,
-  MonthView,
-  MonthViewDay,
-  ViewPeriod,
-} from 'calendar-utils';
+import { PlacementArray } from 'positioning';
 import { Subject, Subscription } from 'rxjs';
+import { DateAdapter } from '../../date-adapters/date-adapter';
+import { MCCalendarEvent, MCMonthView, MCMonthViewDay, MCViewPeriod, MCWeekDay } from '../../models/mc-calendar-utils';
 import {
   CalendarEventTimesChangedEvent,
-  CalendarEventTimesChangedEventType,
+  CalendarEventTimesChangedEventType
 } from '../common/calendar-event-times-changed-event.interface';
 import { CalendarUtils } from '../common/calendar-utils.provider';
 import { validateEvents } from '../common/util';
-import { DateAdapter } from '../../date-adapters/date-adapter';
-import { PlacementArray } from 'positioning';
 
 export interface CalendarMonthViewBeforeRenderEvent {
-  header: WeekDay[];
-  body: MonthViewDay[];
-  period: ViewPeriod;
+  header: MCWeekDay[];
+  body: MCMonthViewDay[];
+  period: MCViewPeriod;
 }
 
 export interface CalendarMonthViewEventTimesChangedEvent<
   EventMetaType = any,
   DayMetaType = any
-> extends CalendarEventTimesChangedEvent<EventMetaType> {
-  day: MonthViewDay<DayMetaType>;
+  > extends CalendarEventTimesChangedEvent<EventMetaType> {
+  day: MCMonthViewDay<DayMetaType>;
 }
 
 /**
@@ -150,7 +139,7 @@ export class CalendarMonthViewComponent
    * An array of events to display on view.
    * The schema is available here: https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
    */
-  @Input() events: CalendarEvent[] = [];
+  @Input() events: MCCalendarEvent[] = [];
 
   /**
    * An array of day indexes (0 = sunday, 1 = monday etc) that will be hidden on the view
@@ -201,7 +190,7 @@ export class CalendarMonthViewComponent
   /**
    * The start number of the week
    */
-  @Input() weekStartsOn: number;
+  @Input() weekStartsOn: 0 | 6 | 5 | 4 | 3 | 2 | 1;
 
   /**
    * A custom template to use to replace the header
@@ -245,7 +234,7 @@ export class CalendarMonthViewComponent
    * Called when the day cell is clicked
    */
   @Output() dayClicked = new EventEmitter<{
-    day: MonthViewDay;
+    day: MCMonthViewDay;
     sourceEvent: MouseEvent | any;
   }>();
 
@@ -253,7 +242,7 @@ export class CalendarMonthViewComponent
    * Called when the event title is clicked
    */
   @Output() eventClicked = new EventEmitter<{
-    event: CalendarEvent;
+    event: MCCalendarEvent;
     sourceEvent: MouseEvent | any;
   }>();
 
@@ -276,12 +265,12 @@ export class CalendarMonthViewComponent
   /**
    * @hidden
    */
-  columnHeaders: WeekDay[];
+  columnHeaders: MCWeekDay[];
 
   /**
    * @hidden
    */
-  view: MonthView;
+  view: MCMonthView;
 
   /**
    * @hidden
@@ -291,7 +280,7 @@ export class CalendarMonthViewComponent
   /**
    * @hidden
    */
-  openDay: MonthViewDay;
+  openDay: MCMonthViewDay;
 
   /**
    * @hidden
@@ -322,7 +311,7 @@ export class CalendarMonthViewComponent
   /**
    * @hidden
    */
-  trackByDate = (index: number, day: MonthViewDay) => day.date.toISOString();
+  trackByDate = (index: number, day: MCMonthViewDay) => day.date.toISOString();
 
   /**
    * @hidden
@@ -387,7 +376,7 @@ export class CalendarMonthViewComponent
   /**
    * @hidden
    */
-  toggleDayHighlight(event: CalendarEvent, isHighlighted: boolean): void {
+  toggleDayHighlight(event: MCCalendarEvent, isHighlighted: boolean): void {
     this.view.days.forEach((day) => {
       if (isHighlighted && day.events.indexOf(event) > -1) {
         day.backgroundColor =
@@ -402,9 +391,9 @@ export class CalendarMonthViewComponent
    * @hidden
    */
   eventDropped(
-    droppedOn: MonthViewDay,
-    event: CalendarEvent,
-    draggedFrom?: MonthViewDay
+    droppedOn: MCMonthViewDay,
+    event: MCCalendarEvent,
+    draggedFrom?: MCMonthViewDay
   ): void {
     if (droppedOn !== draggedFrom) {
       const year: number = this.dateAdapter.getYear(droppedOn.date);
@@ -439,8 +428,7 @@ export class CalendarMonthViewComponent
     this.columnHeaders = this.utils.getWeekViewHeader({
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn,
-      excluded: this.excludeDays,
-      weekendDays: this.weekendDays,
+      excluded: this.excludeDays
     });
   }
 
@@ -449,8 +437,7 @@ export class CalendarMonthViewComponent
       events: this.events,
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn,
-      excluded: this.excludeDays,
-      weekendDays: this.weekendDays,
+      excluded: this.excludeDays
     });
   }
 

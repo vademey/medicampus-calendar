@@ -1,19 +1,15 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  TemplateRef,
-} from '@angular/core';
-import {
-  trigger,
-  style,
-  state,
-  transition,
   animate,
-  AnimationTriggerMetadata,
+  AnimationTriggerMetadata, state, style,
+  transition, trigger
 } from '@angular/animations';
-import { CalendarEvent } from 'calendar-utils';
+import {
+  Component,
+  EventEmitter, Input,
+  Output,
+  TemplateRef
+} from '@angular/core';
+import { MCCalendarEvent } from '../../models/mc-calendar-utils';
 import { isWithinThreshold, trackByEventId } from '../common/util';
 
 export const collapseAnimation: AnimationTriggerMetadata = trigger('collapse', [
@@ -133,7 +129,7 @@ export class CalendarOpenDayEventsComponent {
 
   @Input() isOpen: boolean = false;
 
-  @Input() events: CalendarEvent[];
+  @Input() events: MCCalendarEvent[];
 
   @Input() customTemplate: TemplateRef<any>;
 
@@ -144,7 +140,7 @@ export class CalendarOpenDayEventsComponent {
   @Input() date: Date;
 
   @Output() eventClicked = new EventEmitter<{
-    event: CalendarEvent;
+    event: MCCalendarEvent;
     sourceEvent: MouseEvent | any;
   }>();
 

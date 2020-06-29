@@ -1,16 +1,7 @@
-import {
-  CalendarEvent,
-  WeekViewTimeEvent,
-  WeekViewHour,
-  WeekViewHourSegment,
-  validateEvents as validateEventsWithoutLog,
-  ViewPeriod,
-  WeekDay,
-  WeekViewAllDayEvent,
-} from 'calendar-utils';
 import { DateAdapter } from '../../date-adapters/date-adapter';
+import { MCCalendarEvent, MCViewPeriod, MCWeekDay, MCWeekViewAllDayEvent, MCWeekViewHour, MCWeekViewHourSegment, MCWeekViewTimeEvent, validateEvents as validateEventsWithoutLog } from '../../models/mc-calendar-utils';
 
-export const validateEvents = (events: CalendarEvent[]) => {
+export const validateEvents = (events: MCCalendarEvent[]) => {
   const warn = (...args) => console.warn('angular-calendar', ...args);
   return validateEventsWithoutLog(events, warn);
 };
@@ -32,28 +23,28 @@ export function roundToNearest(amount: number, precision: number) {
   return Math.round(amount / precision) * precision;
 }
 
-export const trackByEventId = (index: number, event: CalendarEvent) =>
+export const trackByEventId = (index: number, event: MCCalendarEvent) =>
   event.id ? event.id : event;
 
-export const trackByWeekDayHeaderDate = (index: number, day: WeekDay) =>
+export const trackByWeekDayHeaderDate = (index: number, day: MCWeekDay) =>
   day.date.toISOString();
 
 export const trackByHourSegment = (
   index: number,
-  segment: WeekViewHourSegment
+  segment: MCWeekViewHourSegment
 ) => segment.date.toISOString();
 
-export const trackByHour = (index: number, hour: WeekViewHour) =>
+export const trackByHour = (index: number, hour: MCWeekViewHour) =>
   hour.segments[0].date.toISOString();
 
 export const trackByWeekAllDayEvent = (
   index: number,
-  weekEvent: WeekViewAllDayEvent
+  weekEvent: MCWeekViewAllDayEvent
 ) => (weekEvent.event.id ? weekEvent.event.id : weekEvent.event);
 
 export const trackByWeekTimeEvent = (
   index: number,
-  weekEvent: WeekViewTimeEvent
+  weekEvent: MCWeekViewTimeEvent
 ) => (weekEvent.event.id ? weekEvent.event.id : weekEvent.event);
 
 const MINUTES_IN_HOUR = 60;
@@ -93,7 +84,7 @@ export function getMinimumEventHeightInMinutes(
 
 export function getDefaultEventEnd(
   dateAdapter: DateAdapter,
-  event: CalendarEvent,
+  event: MCCalendarEvent,
   minimumMinutes: number
 ): Date {
   if (event.end) {
@@ -127,7 +118,7 @@ export function addDaysWithExclusions(
 export function isDraggedWithinPeriod(
   newStart: Date,
   newEnd: Date,
-  period: ViewPeriod
+  period: MCViewPeriod
 ): boolean {
   const end = newEnd || newStart;
   return (
@@ -137,7 +128,7 @@ export function isDraggedWithinPeriod(
 }
 
 export function shouldFireDroppedEvent(
-  dropEvent: { dropData?: { event?: CalendarEvent; calendarId?: symbol } },
+  dropEvent: { dropData?: { event?: MCCalendarEvent; calendarId?: symbol } },
   date: Date,
   allDay: boolean,
   calendarId: symbol

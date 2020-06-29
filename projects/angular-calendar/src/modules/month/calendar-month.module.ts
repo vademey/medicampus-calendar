@@ -12,7 +12,7 @@ export {
   CalendarMonthViewBeforeRenderEvent,
   CalendarMonthViewEventTimesChangedEvent,
 } from './calendar-month-view.component';
-export { MonthViewDay as CalendarMonthViewDay } from 'calendar-utils';
+export { MCMonthViewDay as CalendarMonthViewDay } from '../../models/mc-calendar-utils';
 export { collapseAnimation } from './calendar-open-day-events.component';
 
 @NgModule({

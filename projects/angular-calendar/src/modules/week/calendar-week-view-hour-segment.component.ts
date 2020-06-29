@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { WeekViewHourSegment } from 'calendar-utils';
+import { MCWeekViewHourSegment } from '../../models/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-week-view-hour-segment',
@@ -50,7 +50,7 @@ import { WeekViewHourSegment } from 'calendar-utils';
   `,
 })
 export class CalendarWeekViewHourSegmentComponent {
-  @Input() segment: WeekViewHourSegment;
+  @Input() segment: MCWeekViewHourSegment;
 
   @Input() segmentHeight: number;
 
