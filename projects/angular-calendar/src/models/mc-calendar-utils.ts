@@ -461,21 +461,6 @@ function getWeekViewHourGrid(dateAdapter, _a) {
     const getHours = dateAdapter.getHours;
     const getMinutes = dateAdapter.getMinutes;
 
-    let __assign = (this && this.__assign) || function () {
-        __assign = Object.assign || ((t) => {
-            for (let s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (const p in s) {
-                    if (Object.prototype.hasOwnProperty.call(s, p)) {
-                        t[p] = s[p];
-                    }
-                }
-            }
-            return t;
-        });
-        return __assign.apply(this, arguments);
-    };
-
 
     return weekDays.map((day) => {
         const dayView = getDayView({
@@ -487,13 +472,28 @@ function getWeekViewHourGrid(dateAdapter, _a) {
             segmentHeight,
             eventWidth: 1,
         });
-        const hours = dayViewHourGrid.map((hour) => {
+
+        const hours = [];
+
+        dayViewHourGrid.forEach(hour => {
+            // const dates = [];
+            hour.segments.forEach(segment => {
+                const date = setMinutes(setHours(day.date, getHours(segment.date)), getMinutes(segment.date));
+                hours.push({ date, hours: hour, events: segment })
+            });
+        });
+
+
+        /*dayViewHourGrid.map((hour) => {
             const segments = hour.segments.map((segment) => {
                 const date = setMinutes(setHours(day.date, getHours(segment.date)), getMinutes(segment.date));
-                return __assign(__assign({}, segment), { date });
+                segment.date = date;
+                return segment;
             });
-            return __assign(__assign({}, hour), { segments });
-        });
+            return { date: new Date(), hours: dayViewHourGrid, events: segments};
+        });*/
+
+
         function getColumnCount(allEvents, prevOverlappingEvents) {
             const columnCount = Math.max.apply(Math, prevOverlappingEvents.map((iEvent) => { return iEvent.left + 1; }));
             const nextOverlappingEvents = allEvents
@@ -511,7 +511,7 @@ function getWeekViewHourGrid(dateAdapter, _a) {
         const mappedEvents = dayView.events.map((event) => {
             const columnCount = getColumnCount(dayView.events, getOverLappingWeekViewEvents(dayView.events, event.top, event.top + event.height));
             const width = 100 / columnCount;
-            return __assign(__assign({}, event), { left: event.left * width, width });
+            return Object.assign(Object.assign({}, event), { left: event.left * width, width });
         });
         return {
             hours,
@@ -519,7 +519,7 @@ function getWeekViewHourGrid(dateAdapter, _a) {
             events: mappedEvents.map((event) => {
                 const overLappingEvents = getOverLappingWeekViewEvents(mappedEvents.filter((otherEvent) => { return otherEvent.left > event.left; }), event.top, event.top + event.height);
                 if (overLappingEvents.length > 0) {
-                    return __assign(__assign({}, event), { width: Math.min.apply(Math, overLappingEvents.map(function (otherEvent) { return otherEvent.left; })) - event.left });
+                    return Object.assign(Object.assign({}, event), { width: Math.min.apply(Math, overLappingEvents.map((otherEvent) => { return otherEvent.left; })) - event.left });
                 }
                 return event;
             }),
@@ -560,32 +560,7 @@ function getAllDayWeekEvents(dateAdapter, _a) {
         excluded,
     });
     const totalDaysInView = differenceInDays(viewEnd, viewStart) + 1;
-    const __spreadArrays = (this && this.__spreadArrays) || (() => {
-        for (let s = 0, i = 0, il = arguments.length; i < il; i++) {
-            s += arguments[i].length;
-            for (let r = Array(s), k = 0, i = 0; i < il; i++) {
-                for (let a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) {
-                    r[k] = a[j];
 
-                    return r;
-                }
-            }
-        }
-    });
-    let __assign = (this && this.__assign) || function () {
-        __assign = Object.assign || ((t) => {
-            for (let s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (const p in s) {
-                    if (Object.prototype.hasOwnProperty.call(s, p)) {
-                        t[p] = s[p];
-                    }
-                }
-            }
-            return t;
-        });
-        return __assign.apply(this, arguments);
-    };
     const eventsMapped = eventsInPeriod
         .filter((event) => { return event.allDay; })
         .map((event) => {
@@ -643,12 +618,12 @@ function getAllDayWeekEvents(dateAdapter, _a) {
                         return true;
                     }
                 });
-            const weekEvents = __spreadArrays([event], otherRowEvents);
+            const weekEvents = [...event, otherRowEvents];
             const id = weekEvents
                 .filter((weekEvent) => { return weekEvent.event.id; })
                 .map((weekEvent) => { return weekEvent.event.id; })
                 .join('-');
-            allDayEventRows.push(__assign({ row: weekEvents }, (id ? { id } : {})));
+            allDayEventRows.push(Object.assign({ row: weekEvents }, (id ? { id } : {})));
         }
     });
     return allDayEventRows;
