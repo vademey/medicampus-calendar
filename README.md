@@ -1,5 +1,6 @@
 <h1 align="center">Bibliothek verknüpfen</h1>
-<div align="center">
+<div align="left">
+
 Wenn dist Ordner noch nicht vorhanden:
 ```bash
 npm run build
