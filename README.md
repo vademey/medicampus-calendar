@@ -1,3 +1,23 @@
+<h1 align="center">Bibliothek verknüpfen</h1>
+<div align="center">
+Wenn dist Ordner noch nicht vorhanden:
+```bash
+npm run build
+```
+
+.tgz Datei generieren:
+```bash
+cd dist/angular-calendar
+npm pack
+```
+
+In Projekt, das Bibliothek nutzen soll:
+```bash
+npm i ../medicampus-calendar/dist/angular-calendar/angular-calendar-<version>.tgz
+```
+```<version>``` ersetzen mit aktueller Version: 0.28.16
+</div>
+
 <h1 align="center">angular 6.0+ calendar</h1>
 
 <div align="center">
