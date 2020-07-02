@@ -25,10 +25,6 @@ import { MCWeekViewAllDayEvent, MCWeekViewTimeEvent, MCWeekViewHourColumn } from
     >
       <div
         class="cal-event"
-        [ngStyle]="{
-          backgroundColor: weekEvent.event.color?.secondary,
-          borderColor: weekEvent.event.color?.primary
-        }"
         [mwlCalendarTooltip]="
           !tooltipDisabled
             ? (weekEvent.event.title
@@ -57,6 +53,11 @@ import { MCWeekViewAllDayEvent, MCWeekViewTimeEvent, MCWeekViewHourColumn } from
         >
         </mwl-calendar-event-actions>
         &ngsp;
+        <div class="cal-event-top-bar" *ngIf="!(weekEvent.tempEvent || weekEvent.event).allDay">
+          <span class="cal-event-room-group">Raum L30 / Gr. H1 - H24</span>
+          <div class="cal-event-quicklinks"
+          [ngStyle]="{ backgroundColor: weekEvent.event.color?.primary }"></div>
+        </div>
         <mwl-calendar-event-title
           [event]="weekEvent.tempEvent || weekEvent.event"
           [customTemplate]="eventTitleTemplate"

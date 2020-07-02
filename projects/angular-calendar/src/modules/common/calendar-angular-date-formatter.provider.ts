@@ -98,4 +98,19 @@ export class CalendarAngularDateFormatter
   public dayViewTitle({ date, locale }: DateFormatterParams): string {
     return formatDate(date, 'EEEE, MMMM d, y', locale);
   }
+
+
+  public eventStartDateTitle({
+    date,
+    locale,
+  }: DateFormatterParams): string {
+    return formatDate(date, 'd. MMMM y / HH:mm', locale);
+  }
+
+  public eventEndTimeTitle({
+    date,
+    locale,
+  }: DateFormatterParams): string {
+    return formatDate(date, 'HH:mm', locale);
+  }
 }

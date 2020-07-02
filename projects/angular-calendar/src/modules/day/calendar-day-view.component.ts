@@ -46,6 +46,7 @@ export type CalendarDayViewBeforeRenderEvent = CalendarWeekViewBeforeRenderEvent
       [tooltipDelay]="tooltipDelay"
       [hourSegmentTemplate]="hourSegmentTemplate"
       [eventTemplate]="eventTemplate"
+      [tooltipDisabled]="tooltipDisabled"
       [eventTitleTemplate]="eventTitleTemplate"
       [eventActionsTemplate]="eventActionsTemplate"
       [snapDraggedEvents]="snapDraggedEvents"
@@ -124,6 +125,9 @@ export class CalendarDayViewComponent {
    * A custom template to use for the event tooltips
    */
   @Input() tooltipTemplate: TemplateRef<any>;
+
+
+  @Input() tooltipDisabled = false;
 
   /**
    * Whether to append tooltips to the body or next to the trigger element

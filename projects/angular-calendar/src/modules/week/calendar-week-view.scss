@@ -25,19 +25,19 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
       }
     }
 
-    .cal-day-headers .cal-header:hover,
+    /* .cal-day-headers .cal-header:hover,
     .cal-day-headers .cal-drag-over {
       // background-color: map-get($theme, bg-active);
-    }
+    }*/
 
     .cal-day-column {
       border-left-color: map-get($theme, border-color);
     }
 
     .cal-event {
-      background-color: map-get($theme, event-color-secondary);
-      border-color: map-get($theme, event-color-primary);
-      color: map-get($theme, event-color-primary);
+      // background-color: map-get($theme, event-color-secondary);
+      // border-color: map-get($theme, event-color-primary);
+      // color: map-get($theme, event-color-primary);
     }
 
     .cal-all-day-events {
@@ -56,13 +56,13 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
     .cal-time-events {
       border-color: map-get($theme, border-color);
 
-      .cal-day-columns {
+      /*.cal-day-columns {
         &:not(.cal-resize-active) {
           .cal-hour-segment:hover {
             //background-color: map-get($theme, bg-active);
           }
         }
-      }
+      }*/
     }
 
     .cal-hour-odd {
@@ -121,7 +121,59 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
 
   .cal-event {
     font-size: 12px;
-    border: 1px solid;
+    background-color: white;
+    color: #555;
+    box-shadow: 2px 3px 10px -1px #ccc;
+    border: 1px solid #ececec;
+    border-top: 0;
+
+    .cal-event-date-title {
+      padding-left: 12px;
+      font-size: 11px;
+    }
+
+    .cal-event-title {
+      padding-left: 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    mwl-calendar-event-title {
+      height: calc(100% - 20px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-content: flex-start;
+      padding-top: 8px;
+      position: relative;
+      flex-direction: column;
+
+      .cal-event-arrow {
+        position: absolute;
+        right: 8px;
+        top: 18px;
+      }
+    }
+
+    .cal-event-top-bar {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 20px;
+
+      .cal-event-room-group {
+        height: 20px;
+        background: #E4E4E4;
+        color: #555555;
+        font-size: 10px;
+        width: 50%;
+      }
+
+      .cal-event-quicklinks {
+        height: 20px;
+        width: 50%;
+      }
+    }
   }
 
   .cal-time-label-column {
@@ -177,13 +229,13 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
     }
 
     .cal-starts-within-week .cal-event {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      // border-top-left-radius: 5px;
+      // border-bottom-left-radius: 5px;
     }
 
     .cal-ends-within-week .cal-event {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+      // border-top-right-radius: 5px;
+      //border-bottom-right-radius: 5px;
     }
 
     .cal-time-label-column {
@@ -248,10 +300,32 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
 
     .cal-event {
       width: calc(100% - 2px);
-      height: calc(100% - 2px);
-      margin: 1px;
-      padding: 0 5px;
-      line-height: 25px;
+      height: 100%;
+      // margin: 1px;
+      // padding: 0 5px;
+      // line-height: 25px;
+
+
+      .cal-event-top-bar {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 20px;
+
+        .cal-event-room-group {
+          height: 20px;
+          background: #E4E4E4;
+          color: #555555;
+          font-size: 10px;
+          width: 50%;
+          padding-left: 12px;
+        }
+
+        .cal-event-quicklinks {
+          height: 20px;
+          width: 50%;
+        }
+      }
     }
 
     .cal-resize-handle {
@@ -319,13 +393,13 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
   }
 
   .cal-starts-within-day .cal-event {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    // border-top-left-radius: 5px;
+    // border-top-right-radius: 5px;
   }
 
   .cal-ends-within-day .cal-event {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    // border-bottom-left-radius: 5px;
+    // border-bottom-right-radius: 5px;
   }
 }
 
