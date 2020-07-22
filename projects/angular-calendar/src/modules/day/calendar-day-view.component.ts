@@ -41,12 +41,12 @@ export type CalendarDayViewBeforeRenderEvent = CalendarWeekViewBeforeRenderEvent
       [locale]="locale"
       [eventSnapSize]="eventSnapSize"
       [tooltipPlacement]="tooltipPlacement"
+      [tooltipDisabled]="true"
       [tooltipTemplate]="tooltipTemplate"
       [tooltipAppendToBody]="tooltipAppendToBody"
       [tooltipDelay]="tooltipDelay"
       [hourSegmentTemplate]="hourSegmentTemplate"
       [eventTemplate]="eventTemplate"
-      [tooltipDisabled]="tooltipDisabled"
       [eventTitleTemplate]="eventTitleTemplate"
       [eventActionsTemplate]="eventActionsTemplate"
       [snapDraggedEvents]="snapDraggedEvents"
@@ -178,9 +178,7 @@ export class CalendarDayViewComponent {
   /**
    * Called when an event title is clicked
    */
-  @Output() eventClicked = new EventEmitter<{
-    event: MCCalendarEvent;
-  }>();
+  @Output() eventClicked = new EventEmitter<any>();
 
   /**
    * Called when an hour segment is clicked

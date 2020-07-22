@@ -27,7 +27,14 @@ import { DateAdapter } from '../../date-adapters/date-adapter';
         class="cal-current-time-marker"
         *ngIf="isVisible"
         [style.top.px]="topPx"
-      ></div>
+      >
+        <div style="position: absolute;height: 18px;width: 18px;top: -8px;left: -14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px" height="18px" style="fill: red;">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </div>
+      </div>
     </ng-template>
     <ng-template
       [ngTemplateOutlet]="customTemplate || defaultTemplate"
@@ -94,7 +101,7 @@ export class CalendarWeekViewCurrentTimeMarkerComponent implements OnChanges {
     })
   );
 
-  constructor(private dateAdapter: DateAdapter, private zone: NgZone) {}
+  constructor(private dateAdapter: DateAdapter, private zone: NgZone) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.columnDate) {

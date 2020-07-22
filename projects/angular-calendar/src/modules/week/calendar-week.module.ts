@@ -8,6 +8,7 @@ import { CalendarWeekViewEventComponent } from './calendar-week-view-event.compo
 import { CalendarWeekViewHeaderComponent } from './calendar-week-view-header.component';
 import { CalendarWeekViewHourSegmentComponent } from './calendar-week-view-hour-segment.component';
 import { CalendarWeekViewComponent } from './calendar-week-view.component';
+import { QuicklinksComponent } from './quicklinks/quicklinks.component';
 
 export {
   MCGetWeekViewArgs as CalendarGetWeekViewArgs,
@@ -22,7 +23,7 @@ export { CalendarWeekViewBeforeRenderEvent, CalendarWeekViewComponent } from './
     CommonModule,
     ResizableModule,
     DragAndDropModule,
-    CalendarCommonModule,
+    CalendarCommonModule
   ],
   declarations: [
     CalendarWeekViewComponent,
@@ -30,6 +31,7 @@ export { CalendarWeekViewBeforeRenderEvent, CalendarWeekViewComponent } from './
     CalendarWeekViewEventComponent,
     CalendarWeekViewHourSegmentComponent,
     CalendarWeekViewCurrentTimeMarkerComponent,
+    QuicklinksComponent
   ],
   exports: [
     ResizableModule,
@@ -39,6 +41,7 @@ export { CalendarWeekViewBeforeRenderEvent, CalendarWeekViewComponent } from './
     CalendarWeekViewEventComponent,
     CalendarWeekViewHourSegmentComponent,
     CalendarWeekViewCurrentTimeMarkerComponent,
+    QuicklinksComponent
   ],
 })
 export class CalendarWeekModule { }

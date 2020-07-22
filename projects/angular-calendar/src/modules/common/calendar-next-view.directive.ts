@@ -40,6 +40,9 @@ export class CalendarNextViewDirective {
    */
   @Input() excludeDays: number[] = [];
 
+  @Input()
+  stepDays: number = 1;
+
   /**
    * The number of days in a week. If set will add this amount of days instead of 1 week
    */
@@ -50,7 +53,7 @@ export class CalendarNextViewDirective {
    */
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
-  constructor(private dateAdapter: DateAdapter) {}
+  constructor(private dateAdapter: DateAdapter) { }
 
   /**
    * @hidden
@@ -68,7 +71,7 @@ export class CalendarNextViewDirective {
         addDaysWithExclusions(
           this.dateAdapter,
           this.viewDate,
-          1,
+          this.stepDays,
           this.excludeDays
         )
       );
