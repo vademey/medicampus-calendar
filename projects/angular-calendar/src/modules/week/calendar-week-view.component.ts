@@ -45,7 +45,7 @@ import {
   ValidateDrag,
 } from 'angular-draggable-droppable';
 import { PlacementArray } from 'positioning';
-import { MCCalendarEvent, MCWeekDay, MCWeekView, MCWeekViewAllDayEvent, MCWeekViewHourColumn, MCWeekViewAllDayEventRow, MCWeekViewTimeEvent } from '../../utilities/mc-calendar-utils';
+import { MCEvent, MCWeekDay, MCWeekView, MCWeekViewAllDayEvent, MCWeekViewHourColumn, MCWeekViewAllDayEventRow, MCWeekViewTimeEvent } from '../../utilities/mc-calendar-utils';
 
 export interface WeekViewAllDayEventResize {
   originalOffset: number;
@@ -320,7 +320,7 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
                     [tooltipPlacement]="tooltipPlacement"
                     [tooltipTemplate]="tooltipTemplate"
                     [tooltipAppendToBody]="tooltipAppendToBody"
-                    [tooltipDisabled]="dragActive || timeEventResizes.size > 0"
+                    [tooltipDisabled]="tooltipDisabled || dragActive || timeEventResizes.size > 0"
                     [tooltipDelay]="tooltipDelay"
                     [customTemplate]="eventTemplate"
                     [eventTitleTemplate]="eventTitleTemplate"
@@ -407,7 +407,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
    * An array of events to display on view
    * The schema is available here: https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
    */
-  @Input() events: MCCalendarEvent[] = [];
+  @Input() events: MCEvent[] = [];
 
   /**
    * An array of day indexes (0 = sunday, 1 = monday etc) that will be hidden on the view
@@ -423,6 +423,8 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
    * The locale used to format dates
    */
   @Input() locale: string;
+
+  @Input() tooltipDisabled: boolean;
 
   /**
    * The placement of the event tooltip
@@ -556,7 +558,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
    * Called when the event title is clicked
    */
   @Output() eventClicked = new EventEmitter<{
-    event: MCCalendarEvent;
+    event: MCEvent;
     sourceEvent: MouseEvent | any;
   }>();
 
@@ -609,7 +611,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * @hidden
    */
-  timeEventResizes: Map<MCCalendarEvent, ResizeEvent> = new Map();
+  timeEventResizes: Map<MCEvent, ResizeEvent> = new Map();
 
   /**
    * @hidden
@@ -652,7 +654,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * @hidden
    */
-  lastDraggedEvent: MCCalendarEvent;
+  lastDraggedEvent: MCEvent;
 
   /**
    * @hidden
@@ -787,7 +789,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
    */
   timeEventResizing(timeEvent: MCWeekViewTimeEvent, resizeEvent: ResizeEvent) {
     this.timeEventResizes.set(timeEvent.event, resizeEvent);
-    const adjustedEvents = new Map<MCCalendarEvent, MCCalendarEvent>();
+    const adjustedEvents = new Map<MCEvent, MCEvent>();
 
     const tempEvents = [...this.events];
 
@@ -933,7 +935,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
    * @hidden
    */
   eventDropped(
-    dropEvent: DropEvent<{ event?: MCCalendarEvent; calendarId?: symbol }>,
+    dropEvent: DropEvent<{ event?: MCEvent; calendarId?: symbol }>,
     date: Date,
     allDay: boolean
   ): void {
@@ -1115,7 +1117,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  protected getWeekView(events: MCCalendarEvent[]) {
+  protected getWeekView(events: MCEvent[]) {
     return this.utils.getWeekView({
       events,
       viewDate: this.viewDate,
@@ -1186,8 +1188,8 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   protected restoreOriginalEvents(
-    tempEvents: MCCalendarEvent[],
-    adjustedEvents: Map<MCCalendarEvent, MCCalendarEvent>,
+    tempEvents: MCEvent[],
+    adjustedEvents: Map<MCEvent, MCEvent>,
     snapDraggedEvents = true
   ) {
     const previousView = this.view;
@@ -1236,7 +1238,7 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   protected getTimeEventResizedDates(
-    calendarEvent: MCCalendarEvent,
+    calendarEvent: MCEvent,
     resizeEvent: ResizeEvent
   ) {
     const minimumEventHeight = getMinimumEventHeightInMinutes(

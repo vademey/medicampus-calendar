@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MCEvent } from '../../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-mc-quicklinks',
@@ -8,7 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class QuicklinksComponent implements OnInit {
 
   @Input()
-  color: string;
+  event: MCEvent;
 
   @Output()
   quicklinkClick: EventEmitter<string> = new EventEmitter<string>();
@@ -19,7 +20,6 @@ export class QuicklinksComponent implements OnInit {
   }
 
   navigateToLink(link: string) {
-    // this.router.navigate([link]);
     this.quicklinkClick.emit(link);
   }
 

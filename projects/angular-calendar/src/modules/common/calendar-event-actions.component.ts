@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { MCCalendarEvent, MCEventAction } from '../../utilities/mc-calendar-utils';
+import { MCEvent, MCEventAction } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-event-actions',
@@ -40,7 +40,7 @@ import { MCCalendarEvent, MCEventAction } from '../../utilities/mc-calendar-util
   `,
 })
 export class CalendarEventActionsComponent {
-  @Input() event: MCCalendarEvent;
+  @Input() event: MCEvent;
 
   @Input() customTemplate: TemplateRef<any>;
 

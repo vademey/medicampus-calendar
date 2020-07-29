@@ -64,7 +64,7 @@ import { MCWeekViewAllDayEvent, MCWeekViewTimeEvent, MCWeekViewHourColumn } from
           [view]="daysInWeek === 1 ? 'day' : 'week'"
         >
         </mwl-calendar-event-title>
-        <mwl-mc-quicklinks (quicklinkClick)="eventClicked.emit({ sourceEvent: $event, isQuicklink: true })" [color]="weekEvent.event.color?.primary"></mwl-mc-quicklinks>
+        <mwl-mc-quicklinks (quicklinkClick)="eventClicked.emit({ sourceEvent: $event, isQuicklink: true })" [event]="weekEvent.event"></mwl-mc-quicklinks>
       </div>
     </ng-template>
 

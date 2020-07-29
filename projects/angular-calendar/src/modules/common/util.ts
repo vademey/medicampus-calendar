@@ -1,7 +1,7 @@
-import { MCCalendarEvent, MCViewPeriod, MCWeekDay, MCWeekViewAllDayEvent, MCWeekViewHour, MCWeekViewHourSegment, MCWeekViewTimeEvent, validateEvents as validateEventsWithoutLog } from '../../utilities/mc-calendar-utils';
+import { MCEvent, MCViewPeriod, MCWeekDay, MCWeekViewAllDayEvent, MCWeekViewHour, MCWeekViewHourSegment, MCWeekViewTimeEvent, validateEvents as validateEventsWithoutLog } from '../../utilities/mc-calendar-utils';
 import { DateAdapter } from '../../date-adapters/date-adapter';
 
-export const validateEvents = (events: MCCalendarEvent[]) => {
+export const validateEvents = (events: MCEvent[]) => {
   const warn = (...args) => console.warn('angular-calendar', ...args);
   return validateEventsWithoutLog(events, warn);
 };
@@ -23,7 +23,7 @@ export function roundToNearest(amount: number, precision: number) {
   return Math.round(amount / precision) * precision;
 }
 
-export const trackByEventId = (index: number, event: MCCalendarEvent) =>
+export const trackByEventId = (index: number, event: MCEvent) =>
   event.id ? event.id : event;
 
 export const trackByWeekDayHeaderDate = (index: number, day: MCWeekDay) =>
@@ -84,7 +84,7 @@ export function getMinimumEventHeightInMinutes(
 
 export function getDefaultEventEnd(
   dateAdapter: DateAdapter,
-  event: MCCalendarEvent,
+  event: MCEvent,
   minimumMinutes: number
 ): Date {
   if (event.end) {
@@ -128,7 +128,7 @@ export function isDraggedWithinPeriod(
 }
 
 export function shouldFireDroppedEvent(
-  dropEvent: { dropData?: { event?: MCCalendarEvent; calendarId?: symbol } },
+  dropEvent: { dropData?: { event?: MCEvent; calendarId?: symbol } },
   date: Date,
   allDay: boolean,
   calendarId: symbol

@@ -43,12 +43,12 @@ export interface MCEventAction {
         event,
         sourceEvent,
     }: {
-        event: MCCalendarEvent;
+        event: MCEvent;
         sourceEvent: MouseEvent | KeyboardEvent;
     }): any;
 }
 
-export interface MCCalendarEvent<MetaType = any> {
+export interface MCEvent<MetaType = any> {
     id?: string | number;
     start: Date;
     end?: Date;
@@ -63,10 +63,34 @@ export interface MCCalendarEvent<MetaType = any> {
     };
     draggable?: boolean;
     meta?: MetaType;
+    room?: string;
+    groups?: string[];
+    presenceRecorded?: boolean;
+    swapAllowed?: boolean;
+    changeAllowed?: boolean;
+    lesson?: MCLesson;
+    newsid?: number;
+}
+
+export interface MCLesson {
+    id: number;
+    name: string;
+    shortName: string;
+    iliasURL: string;
+    hasLearningMaterial: boolean;
+    videoURL: string;
+    groupsPerEvent?: string;
+    module: MCModule;
+}
+
+export interface MCModule {
+    id: number;
+    color: string;
+    name: string;
 }
 
 export interface MCWeekViewAllDayEvent {
-    event: MCCalendarEvent;
+    event: MCEvent;
     offset: number;
     span: number;
     startsBeforeWeek: boolean;
@@ -86,7 +110,7 @@ export interface MCWeekView {
 
 export interface MCMonthViewDay<MetaType = any> extends MCWeekDay {
     inMonth: boolean;
-    events: MCCalendarEvent[];
+    events: MCEvent[];
     backgroundColor?: string;
     badgeTotal: number;
     meta?: MetaType;
@@ -100,7 +124,7 @@ export interface MCMonthView {
 }
 
 export interface MCWeekViewTimeEvent {
-    event: MCCalendarEvent;
+    event: MCEvent;
     height: number;
     width: number;
     top: number;
@@ -112,7 +136,7 @@ export interface MCWeekViewTimeEvent {
 interface MCDayView {
     events: MCWeekViewTimeEvent[];
     width: number;
-    allDayEvents: MCCalendarEvent[];
+    allDayEvents: MCEvent[];
     period: MCViewPeriod;
 }
 
@@ -136,7 +160,7 @@ export interface MCWeekViewHourColumn {
 export interface MCViewPeriod {
     start: Date;
     end: Date;
-    events: MCCalendarEvent[];
+    events: MCEvent[];
 }
 
 function getExcludedSeconds(
@@ -223,7 +247,7 @@ function getWeekViewEventSpan(
         precision,
         totalDaysInView,
     }: {
-        event: MCCalendarEvent;
+        event: MCEvent;
         offset: number;
         startOfWeekDate: Date;
         excluded: number[];
@@ -282,7 +306,7 @@ function getWeekViewEventOffset(
         excluded,
         precision,
     }: {
-        event: MCCalendarEvent;
+        event: MCEvent;
         startOfWeek: Date;
         excluded: number[];
         precision: 'minutes' | 'days';
@@ -317,7 +341,7 @@ function getWeekViewEventOffset(
 }
 
 interface IsEventInPeriodArgs {
-    event: MCCalendarEvent;
+    event: MCEvent;
     periodStart: Date;
     periodEnd: Date;
 }
@@ -360,7 +384,7 @@ function isEventIsPeriod(
 }
 
 export interface MCGetEventsInPeriodArgs {
-    events: MCCalendarEvent[];
+    events: MCEvent[];
     periodStart: Date;
     periodEnd: Date;
 }
@@ -368,8 +392,8 @@ export interface MCGetEventsInPeriodArgs {
 export function getEventsInPeriod(
     dateAdapter: DateAdapter,
     { events, periodStart, periodEnd }: MCGetEventsInPeriodArgs
-): MCCalendarEvent[] {
-    return events.filter((event: MCCalendarEvent) =>
+): MCEvent[] {
+    return events.filter((event: MCEvent) =>
         isEventIsPeriod(dateAdapter, { event, periodStart, periodEnd })
     );
 }
@@ -431,7 +455,7 @@ export function getWeekViewHeader(
 }
 
 export interface MCGetWeekViewArgs {
-    events?: MCCalendarEvent[];
+    events?: MCEvent[];
     viewDate: Date;
     weekStartsOn: number;
     excluded?: number[];
@@ -465,7 +489,7 @@ export function getDifferenceInDaysWithExclusions(
 
 interface MCGetAllDayEventArgs {
     precision?: 'days' | 'minutes';
-    events?: MCCalendarEvent[];
+    events?: MCEvent[];
     absolutePositionedEvents?: boolean;
     viewStart: Date;
     viewEnd: Date;
@@ -576,7 +600,7 @@ interface MCGetWeekViewHourGridArgs extends MCGetDayViewHourGridArgs {
     weekStartsOn: number;
     excluded?: number[];
     weekendDays?: number[];
-    events?: MCCalendarEvent[];
+    events?: MCEvent[];
     segmentHeight: number;
     viewStart: Date;
     viewEnd: Date;
@@ -781,7 +805,7 @@ export function getWeekView(
 }
 
 export interface MCGetMonthViewArgs {
-    events?: MCCalendarEvent[];
+    events?: MCEvent[];
     viewDate: Date;
     weekStartsOn: number;
     excluded?: number[];
@@ -819,7 +843,7 @@ export function getMonthView(
     } = dateAdapter;
     const start: Date = startOfWeek(viewStart, { weekStartsOn });
     const end: Date = endOfWeek(viewEnd, { weekStartsOn });
-    const eventsInMonth: MCCalendarEvent[] = getEventsInPeriod(dateAdapter, {
+    const eventsInMonth: MCEvent[] = getEventsInPeriod(dateAdapter, {
         events,
         periodStart: start,
         periodEnd: end,
@@ -846,7 +870,7 @@ export function getMonthView(
                 date,
                 weekendDays,
             }) as MCMonthViewDay;
-            const eventsInPeriod: MCCalendarEvent[] = getEventsInPeriod(dateAdapter, {
+            const eventsInPeriod: MCEvent[] = getEventsInPeriod(dateAdapter, {
                 events: eventsInMonth,
                 periodStart: startOfDay(date),
                 periodEnd: endOfDay(date),
@@ -900,7 +924,7 @@ export function getMonthView(
 }
 
 export interface MCGetDayViewArgs {
-    events?: MCCalendarEvent[];
+    events?: MCEvent[];
     viewDate: Date;
     hourSegments: number;
     dayStart: {
@@ -973,16 +997,16 @@ function getDayView(
     endOfView.setSeconds(59, 999);
     const previousDayEvents: MCWeekViewTimeEvent[] = [];
     const eventsInPeriod = getEventsInPeriod(dateAdapter, {
-        events: events.filter((event: MCCalendarEvent) => !event.allDay),
+        events: events.filter((event: MCEvent) => !event.allDay),
         periodStart: startOfView,
         periodEnd: endOfView,
     });
 
     const dayViewEvents: MCWeekViewTimeEvent[] = eventsInPeriod
-        .sort((eventA: MCCalendarEvent, eventB: MCCalendarEvent) => {
+        .sort((eventA: MCEvent, eventB: MCEvent) => {
             return eventA.start.valueOf() - eventB.start.valueOf();
         })
-        .map((event: MCCalendarEvent) => {
+        .map((event: MCEvent) => {
             const eventStart: Date = event.start;
             const eventEnd: Date = event.end || eventStart;
             const startsBeforeDay: boolean = eventStart < startOfView;
@@ -1049,8 +1073,8 @@ function getDayView(
     const width: number = Math.max(
         ...dayViewEvents.map((event: MCWeekViewTimeEvent) => event.left + event.width)
     );
-    const allDayEvents: MCCalendarEvent[] = getEventsInPeriod(dateAdapter, {
-        events: events.filter((event: MCCalendarEvent) => event.allDay),
+    const allDayEvents: MCEvent[] = getEventsInPeriod(dateAdapter, {
+        events: events.filter((event: MCEvent) => event.allDay),
         periodStart: startOfDay(startOfView),
         periodEnd: endOfDay(endOfView),
     });
@@ -1168,12 +1192,12 @@ export enum EventValidationErrorMessage {
 }
 
 export function validateEvents(
-    events: MCCalendarEvent[],
+    events: MCEvent[],
     log: (...args: any[]) => void
 ): boolean {
     let isValid: boolean = true;
 
-    function isError(msg: string, event: MCCalendarEvent): void {
+    function isError(msg: string, event: MCEvent): void {
         log(msg, event);
         isValid = false;
     }

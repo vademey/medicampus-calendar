@@ -20,7 +20,7 @@ import { CalendarUtils } from '../common/calendar-utils.provider';
 import { validateEvents } from '../common/util';
 import { DateAdapter } from '../../date-adapters/date-adapter';
 import { PlacementArray } from 'positioning';
-import { MCWeekDay, MCMonthViewDay, MCViewPeriod, MCMonthView, MCCalendarEvent } from '../../utilities/mc-calendar-utils';
+import { MCWeekDay, MCMonthViewDay, MCViewPeriod, MCMonthView, MCEvent } from '../../utilities/mc-calendar-utils';
 
 export interface CalendarMonthViewBeforeRenderEvent {
   header: MCWeekDay[];
@@ -144,7 +144,7 @@ export class CalendarMonthViewComponent
    * An array of events to display on view.
    * The schema is available here: https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
    */
-  @Input() events: MCCalendarEvent[] = [];
+  @Input() events: MCEvent[] = [];
 
   /**
    * An array of day indexes (0 = sunday, 1 = monday etc) that will be hidden on the view
@@ -247,7 +247,7 @@ export class CalendarMonthViewComponent
    * Called when the event title is clicked
    */
   @Output() eventClicked = new EventEmitter<{
-    event: MCCalendarEvent;
+    event: MCEvent;
     sourceEvent: MouseEvent | any;
   }>();
 
@@ -381,7 +381,7 @@ export class CalendarMonthViewComponent
   /**
    * @hidden
    */
-  toggleDayHighlight(event: MCCalendarEvent, isHighlighted: boolean): void {
+  toggleDayHighlight(event: MCEvent, isHighlighted: boolean): void {
     this.view.days.forEach((day) => {
       if (isHighlighted && day.events.indexOf(event) > -1) {
         day.backgroundColor =
@@ -397,7 +397,7 @@ export class CalendarMonthViewComponent
    */
   eventDropped(
     droppedOn: MCMonthViewDay,
-    event: MCCalendarEvent,
+    event: MCEvent,
     draggedFrom?: MCMonthViewDay
   ): void {
     if (droppedOn !== draggedFrom) {

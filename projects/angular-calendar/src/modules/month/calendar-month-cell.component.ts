@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { isWithinThreshold, trackByEventId } from '../common/util';
 import { PlacementArray } from 'positioning';
-import { MCMonthViewDay, MCCalendarEvent } from '../../utilities/mc-calendar-utils';
+import { MCMonthViewDay, MCEvent } from '../../utilities/mc-calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-month-cell',
@@ -124,7 +124,7 @@ export class CalendarMonthCellComponent {
   @Output() unhighlightDay: EventEmitter<any> = new EventEmitter();
 
   @Output() eventClicked = new EventEmitter<{
-    event: MCCalendarEvent;
+    event: MCEvent;
     sourceEvent: MouseEvent;
   }>();
 

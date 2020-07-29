@@ -5,7 +5,7 @@ import {
   Output,
   TemplateRef
 } from '@angular/core';
-import { MCCalendarEvent, MCWeekDay } from '../../utilities/mc-calendar-utils';
+import { MCEvent, MCWeekDay } from '../../utilities/mc-calendar-utils';
 import { trackByWeekDayHeaderDate } from '../common/util';
 
 @Component({
@@ -77,7 +77,7 @@ export class CalendarWeekViewHeaderComponent {
   }>();
 
   @Output() eventDropped = new EventEmitter<{
-    event: MCCalendarEvent;
+    event: MCEvent;
     newStart: Date;
   }>();
 
