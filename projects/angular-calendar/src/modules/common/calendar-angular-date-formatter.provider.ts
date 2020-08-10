@@ -107,6 +107,13 @@ export class CalendarAngularDateFormatter
     return formatDate(date, 'd. MMMM y / HH:mm', locale);
   }
 
+  public eventStartTimeTitle({
+    date,
+    locale,
+  }: DateFormatterParams): string {
+    return formatDate(date, 'HH:mm', locale);
+  }
+
   public eventEndTimeTitle({
     date,
     locale,

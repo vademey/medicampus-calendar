@@ -52,7 +52,7 @@ export interface MCEvent<MetaType = any> {
     id?: string | number;
     start: Date;
     end?: Date;
-    title: string;
+    title?: string;
     color?: EventColor;
     actions?: MCEventAction[];
     allDay?: boolean;
@@ -63,12 +63,11 @@ export interface MCEvent<MetaType = any> {
     };
     draggable?: boolean;
     meta?: MetaType;
-    room?: string;
-    groups?: string[];
+    room?: MCRoom;
+    videoURL?: string;
     presenceRecorded?: boolean;
-    swapAllowed?: boolean;
-    changeAllowed?: boolean;
-    lesson?: MCLesson;
+    lesson: MCLesson;
+    topic?: string;
     newsid?: number;
 }
 
@@ -76,17 +75,46 @@ export interface MCLesson {
     id: number;
     name: string;
     shortName: string;
+    module: MCModule;
+    subject: MCSubject;
+    performanceRecord: MCPerformanceRecord;
+    lessonType: MCLessonType;
     iliasURL: string;
     hasLearningMaterial: boolean;
-    videoURL: string;
-    groupsPerEvent?: string;
-    module: MCModule;
+    swapLessonAllowed: boolean;
+    changeLessonAllowed: boolean;
+    swapEventAllowed: boolean;
+    changeEventAllowed: boolean;
 }
 
 export interface MCModule {
     id: number;
-    color: string;
     name: string;
+    semesterStart: number;
+    semesterEnd: number;
+}
+
+export interface MCRoom {
+    id: number;
+    name: string;
+    shortName: string;
+}
+
+export interface MCSubject {
+    id: number;
+    name: string;
+}
+
+export interface MCPerformanceRecord {
+    id: number;
+    name: string;
+}
+
+export interface MCLessonType {
+    id: number;
+    name: string;
+    mandatory: boolean;
+    color: string;
 }
 
 export interface MCWeekViewAllDayEvent {
