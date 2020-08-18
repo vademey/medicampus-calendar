@@ -45,7 +45,15 @@ import {
   ValidateDrag,
 } from 'angular-draggable-droppable';
 import { PlacementArray } from 'positioning';
-import { MCEvent, MCWeekDay, MCWeekView, MCWeekViewAllDayEvent, MCWeekViewHourColumn, MCWeekViewAllDayEventRow, MCWeekViewTimeEvent } from '../../utilities/mc-calendar-utils';
+import {
+  MCEvent,
+  MCWeekDay,
+  MCWeekView,
+  MCWeekViewAllDayEvent,
+  MCWeekViewHourColumn,
+  MCWeekViewAllDayEventRow,
+  MCWeekViewTimeEvent,
+} from '../../utilities/mc-calendar-utils';
 
 export interface WeekViewAllDayEventResize {
   originalOffset: number;
@@ -250,6 +258,7 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
                 "
                 #event
                 class="cal-event-container"
+                id="cal-event-{{ timeEvent.event.id }}"
                 [class.cal-draggable]="
                   timeEvent.event.draggable && timeEventResizes.size === 0
                 "
@@ -320,7 +329,9 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
                     [tooltipPlacement]="tooltipPlacement"
                     [tooltipTemplate]="tooltipTemplate"
                     [tooltipAppendToBody]="tooltipAppendToBody"
-                    [tooltipDisabled]="tooltipDisabled || dragActive || timeEventResizes.size > 0"
+                    [tooltipDisabled]="
+                      tooltipDisabled || dragActive || timeEventResizes.size > 0
+                    "
                     [tooltipDelay]="tooltipDelay"
                     [customTemplate]="eventTemplate"
                     [eventTitleTemplate]="eventTitleTemplate"
@@ -1155,11 +1166,11 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
     const daysDragged = roundToNearest(dragEndEvent.x, dayWidth) / dayWidth;
     const minutesMoved = useY
       ? getMinutesMoved(
-        dragEndEvent.y,
-        this.hourSegments,
-        this.hourSegmentHeight,
-        this.eventSnapSize
-      )
+          dragEndEvent.y,
+          this.hourSegments,
+          this.hourSegmentHeight,
+          this.eventSnapSize
+        )
       : 0;
 
     const start = this.dateAdapter.addMinutes(

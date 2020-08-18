@@ -1,20 +1,20 @@
-import { NgModule, ModuleWithProviders, Provider } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import {
-  CalendarCommonModule,
-  CalendarModuleConfig,
-  CalendarEventTitleFormatter,
-  CalendarDateFormatter,
   CalendarA11y,
+  CalendarCommonModule,
+  CalendarDateFormatter,
+  CalendarEventTitleFormatter,
+  CalendarModuleConfig,
 } from './common/calendar-common.module';
+import { CalendarUtils } from './common/calendar-utils.provider';
+import { CalendarDayModule } from './day/calendar-day.module';
 import { CalendarMonthModule } from './month/calendar-month.module';
 import { CalendarWeekModule } from './week/calendar-week.module';
-import { CalendarDayModule } from './day/calendar-day.module';
-import { CalendarUtils } from './common/calendar-utils.provider';
 
 export * from './common/calendar-common.module';
+export * from './day/calendar-day.module';
 export * from './month/calendar-month.module';
 export * from './week/calendar-week.module';
-export * from './day/calendar-day.module';
 
 /**
  * The main module of this library. Example usage:
