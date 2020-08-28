@@ -136,6 +136,8 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
       padding: 8px 12px;
       font-size: 14px;
       font-weight: 500;
+      padding-right: 27px;
+      white-space: break-spaces;
     }
 
     mwl-calendar-event-title {
@@ -439,7 +441,7 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
   .cal-time {
     padding-top: 5px;
     width: 50px;
-    height: 150px;
+    // height: 150px;
     text-align: start;
     padding-left: 12px;
     color: #848484;

@@ -26,7 +26,7 @@ import { MCWeekViewHourSegment } from '../../utilities/mc-calendar-utils';
         [class.cal-after-hour-start]="!segment.isStart"
         [ngClass]="segment.cssClass"
       >
-        <div class="cal-time" *ngIf="isTimeLabel">
+        <div class="cal-time" *ngIf="isTimeLabel" [style.height.px]="segmentHeight * 2">
           {{
             segment.displayDate
               | calendarDate
