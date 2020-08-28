@@ -81,8 +81,8 @@ export interface MCLesson {
     lessonType: MCLessonType;
     iliasURL: string;
     hasLearningMaterial: boolean;
-    swapLessonAllowed: boolean;
-    changeLessonAllowed: boolean;
+    swapLessonAllowed?: boolean;
+    changeLessonAllowed?: boolean;
     swapEventAllowed: boolean;
     changeEventAllowed: boolean;
 }
