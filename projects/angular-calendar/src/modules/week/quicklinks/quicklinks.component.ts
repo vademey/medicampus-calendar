@@ -2,9 +2,9 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
-  Output,
-  OnChanges,
+
+
+  OnChanges, Output
 } from '@angular/core';
 import { MCEvent } from '../../../utilities/mc-calendar-utils';
 
@@ -22,7 +22,7 @@ export class QuicklinksComponent implements OnChanges {
 
   isLive = false;
 
-  constructor() {}
+  constructor() { }
 
   ngOnChanges(): void {
     setInterval(() => {

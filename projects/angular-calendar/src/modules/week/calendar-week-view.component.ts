@@ -170,6 +170,7 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
             ></div>
             <mwl-calendar-week-view-event
               [locale]="locale"
+              [hourSegmentHeight]="hourSegmentHeight"
               [weekEvent]="allDayEvent"
               [tooltipPlacement]="tooltipPlacement"
               [tooltipTemplate]="tooltipTemplate"
@@ -325,6 +326,7 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
                 <ng-template #weekEventTemplate>
                   <mwl-calendar-week-view-event
                     [locale]="locale"
+                    [hourSegmentHeight]="hourSegmentHeight"
                     [weekEvent]="timeEvent"
                     [tooltipPlacement]="tooltipPlacement"
                     [tooltipTemplate]="tooltipTemplate"

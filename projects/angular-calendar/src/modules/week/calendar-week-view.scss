@@ -134,10 +134,12 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
 
     .cal-event-title {
       padding: 8px 12px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       padding-right: 27px;
-      white-space: break-spaces;
+      // white-space: break-spaces;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     mwl-calendar-event-title {

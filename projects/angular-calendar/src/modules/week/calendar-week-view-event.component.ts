@@ -125,7 +125,7 @@ import {
         </mwl-calendar-event-title>
 
         <mwl-mc-quicklinks
-          *ngIf="duration >= 45"
+          *ngIf="duration >= 45 && hourSegmentHeight >= 90"
           (quicklinkClick)="
             eventClicked.emit({ sourceEvent: $event, isQuicklink: true })
           "
@@ -234,6 +234,8 @@ import {
 export class CalendarWeekViewEventComponent implements OnChanges {
   @Input() locale: string;
 
+  @Input() hourSegmentHeight: number;
+
   @Input() weekEvent: MCWeekViewAllDayEvent | MCWeekViewTimeEvent;
 
   @Input() tooltipPlacement: PlacementArray;
@@ -269,6 +271,8 @@ export class CalendarWeekViewEventComponent implements OnChanges {
     const diff =
       this.weekEvent.event.end.getTime() - this.weekEvent.event.start.getTime();
     this.duration = Math.round(diff / 60000);
+
+    console.log(this.hourSegmentHeight);
 
     setInterval(() => {
       this.isLive =
