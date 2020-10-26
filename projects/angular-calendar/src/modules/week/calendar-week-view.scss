@@ -240,7 +240,8 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
   }
 
   .cal-time-label-column {
-    width: 70px;
+    // width: 70px;
+    width: 49px;
     height: 100%;
   }
 
@@ -345,6 +346,7 @@ $cal-week-view-vars: map-merge($cal-vars, $cal-week-view-vars);
     border: solid 1px;
     border-top: 0;
     display: flex;
+    border-right: none;
 
     .cal-day-columns {
       display: flex;

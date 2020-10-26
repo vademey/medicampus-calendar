@@ -80,6 +80,7 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
   template: `
     <div class="cal-week-view" role="grid">
       <mwl-calendar-week-view-header
+        style="display: none;"
         [days]="days"
         [locale]="locale"
         [customTemplate]="headerTemplate"
@@ -404,6 +405,33 @@ export interface CalendarWeekViewBeforeRenderEvent extends MCWeekView {
               >
               </mwl-calendar-week-view-hour-segment>
             </div>
+          </div>
+        </div>
+        
+        <div
+          class="cal-time-label-column" style="border-left: thin solid #e1e1e1;"
+          *ngIf="view.hourColumns.length > 0 && daysInWeek !== 1"
+        >
+          <div
+            *ngFor="
+              let hour of view.hourColumns[0].hours;
+              trackBy: trackByHour;
+              let odd = odd
+            "
+            class="cal-hour"
+            [class.cal-hour-odd]="odd"
+          >
+            <mwl-calendar-week-view-hour-segment
+              *ngFor="let segment of hour.segments; trackBy: trackByHourSegment"
+              [style.height.px]="hourSegmentHeight"
+              [segment]="segment"
+              [segmentHeight]="hourSegmentHeight"
+              [locale]="locale"
+              [customTemplate]="hourSegmentTemplate"
+              [isTimeLabel]="false"
+              [daysInWeek]="daysInWeek"
+            >
+            </mwl-calendar-week-view-hour-segment>
           </div>
         </div>
       </div>
@@ -1168,11 +1196,11 @@ export class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
     const daysDragged = roundToNearest(dragEndEvent.x, dayWidth) / dayWidth;
     const minutesMoved = useY
       ? getMinutesMoved(
-          dragEndEvent.y,
-          this.hourSegments,
-          this.hourSegmentHeight,
-          this.eventSnapSize
-        )
+        dragEndEvent.y,
+        this.hourSegments,
+        this.hourSegmentHeight,
+        this.eventSnapSize
+      )
       : 0;
 
     const start = this.dateAdapter.addMinutes(

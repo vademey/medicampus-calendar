@@ -63,6 +63,8 @@ export interface MCEvent<MetaType = any> {
     };
     draggable?: boolean;
     meta?: MetaType;
+    online: boolean;
+    onSite: boolean;
     room?: MCRoom;
     videoURL?: string;
     presenceRecorded?: boolean;

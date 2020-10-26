@@ -89,7 +89,7 @@ import {
 
           <span
             style="padding-left: 5px; width: 100%;"
-            *ngIf="weekEvent.event.room"
+            *ngIf="weekEvent.event.onSite && weekEvent.event.room"
             class="cal-event-room-group"
           >
             <svg

@@ -55,7 +55,7 @@
 <!--<mat-icon [ngStyle]="{ 'color': color }">playlist_add_check</mat-icon>-->
 <!--</div>-->
 
-<div *ngIf="event.room && !event.videoURL" class="mc-quicklink" (click)="navigateToLink('../lesson/map/43')">
+<div *ngIf="event.onSite && !event.online" class="mc-quicklink" (click)="navigateToLink('lesson/map/43')">
   <svg [ngStyle]="{ fill: event.color?.primary }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px"
     height="18px">
     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -65,7 +65,7 @@
   </svg>
   <!--<mat-icon [ngStyle]="{ 'color': color }" class="material-icons-outlined">room</mat-icon>-->
 </div>
-<div *ngIf="!event.room && event.videoURL" class="mc-quicklink" (click)="isLive && navigateToLink(event.videoURL)">
+<div *ngIf="!event.onSite && event.online" class="mc-quicklink" (click)="isLive && navigateToLink(event.videoURL)">
   <svg [ngStyle]="{
       fill: isLive ? event.color?.primary : 'gray',
       opacity: isLive ? '1' : '0.8'
@@ -80,7 +80,7 @@
   <!--<mat-icon [ngStyle]="{ 'color': color }" class="material-icons-outlined">ondemand_video</mat-icon>-->
 </div>
 
-<div *ngIf="event.room && event.videoURL" class="mc-quicklink" (click)="navigateToLink('hybrid')">
+<div *ngIf="event.onSite && event.online" class="mc-quicklink" (click)="navigateToLink('hybrid')">
   <svg [ngStyle]="{ fill: event.color?.primary }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px"
     height="26px" style="margin: auto;">
     <path d="M0 0h24v24H0V0z" fill="none" style="transform: scale(0.7);" />
@@ -100,7 +100,7 @@
   <!--<mat-icon [ngStyle]="{ 'color': color }" class="material-icons-outlined">ondemand_video</mat-icon>-->
 </div>
 
-<div class="mc-quicklink" (click)="navigateToLink('../lesson/evaluation/43')">
+<div class="mc-quicklink" (click)="navigateToLink('lesson/evaluation/43')">
   <svg [ngStyle]="{ fill: event.color?.primary }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px"
     height="18px">
     <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none" />
