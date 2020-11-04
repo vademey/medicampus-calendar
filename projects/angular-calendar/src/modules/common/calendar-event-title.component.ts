@@ -12,23 +12,6 @@ import { MCEvent } from '../../utilities/mc-calendar-utils';
   selector: 'mwl-calendar-event-title',
   template: `
     <ng-template #defaultTemplate let-event="event" let-view="view">
-      <span
-        *ngIf="isLive"
-        class="cal-event-live"
-        (click)="navigateToLiveStream()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="10"
-          height="10"
-          style="transform: translateY(1px); margin-right: -1px;fill: red;"
-          viewBox="0 0 24 24"
-        >
-          <path d="M24 24H0V0h24v24z" fill="none"></path>
-          <circle cx="12" cy="12" r="8"></circle>
-        </svg>
-        LIVE
-      </span>
       <div class="cal-event-arrow">
         <svg
           xmlns="http://www.w3.org/2000/svg"

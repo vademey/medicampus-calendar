@@ -4,13 +4,13 @@ import {
   Input,
   OnChanges,
   Output,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import { PlacementArray } from 'positioning';
 import {
   MCWeekViewAllDayEvent,
   MCWeekViewHourColumn,
-  MCWeekViewTimeEvent,
+  MCWeekViewTimeEvent
 } from '../../utilities/mc-calendar-utils';
 
 @Component({
@@ -60,10 +60,10 @@ import {
         &ngsp;
         <div
           class="cal-event-top-bar"
+          [ngStyle]="{ 'border-top': '2px solid ' + weekEvent.event.color?.primary }"
           *ngIf="!(weekEvent.tempEvent || weekEvent.event).allDay"
         >
           <span
-            style="min-width: 110px;"
             class="cal-event-date-title cal-event-room-group"
             [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
           >
@@ -88,8 +88,8 @@ import {
           </span>
 
           <span
-            style="padding-left: 5px; width: 100%;"
             *ngIf="weekEvent.event.onSite && weekEvent.event.room"
+            [ngStyle]="{'width': weekEvent.event.online ? '50%' : '100%'}"
             class="cal-event-room-group"
           >
             <svg
@@ -105,11 +105,53 @@ import {
               ></path>
               <circle cx="12" cy="9" r="2.5"></circle>
             </svg>
-            {{ weekEvent.event.room?.shortName || '' }}
+            {{ weekEvent.event.online ? weekEvent.event.room?.shortName : weekEvent.event.room?.name }}
+          </span>
+
+          <span
+            *ngIf="weekEvent.event.online"
+            [ngStyle]="{'width': weekEvent.event.onSite && weekEvent.event.room ? '50%' : '100%'}"
+            class="cal-event-room-group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="black"
+              width="12"
+              height="12"
+              style="transform: translateY(2px);margin-right: 1px;">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/>
+            </svg>
+            Online
+            <span
+              *ngIf="isLive"
+              style="border: 1px solid red;
+              border-radius: 3px;
+              padding: 0px 4px;
+              margin: 0px 4px;
+              color: red;
+              font-size: 10px;
+              font-weight: 500;"
+              class="cal-event-live"
+              (click)="navigateToLiveStream()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                style="transform: translateY(1px); margin-right: -1px;fill: red;"
+                viewBox="0 0 24 24"
+              >
+                <path d="M24 24H0V0h24v24z" fill="none"></path>
+                <circle cx="12" cy="12" r="8"></circle>
+              </svg>
+              LIVE
+            </span>
           </span>
 
           <div
             class="cal-event-color"
+            style="pointer-events: none;"
             [ngStyle]="{ backgroundColor: weekEvent.event.color?.primary }"
           ></div>
         </div>
@@ -272,13 +314,17 @@ export class CalendarWeekViewEventComponent implements OnChanges {
       this.weekEvent.event.end.getTime() - this.weekEvent.event.start.getTime();
     this.duration = Math.round(diff / 60000);
 
-    console.log(this.hourSegmentHeight);
-
     setInterval(() => {
       this.isLive =
         this.weekEvent.event.videoURL &&
         new Date() >= this.weekEvent.event.start &&
         new Date() < this.weekEvent.event.end;
     }, 60);
+  }
+
+
+
+  navigateToLiveStream() {
+    this.eventClicked.emit({sourceEvent: this.weekEvent.event.videoURL, isQuicklink : true});
   }
 }
