@@ -92,8 +92,6 @@ export interface MCLesson {
 export interface MCModule {
     id: number;
     name: string;
-    semesterStart: number;
-    semesterEnd: number;
 }
 
 export interface MCRoom {
