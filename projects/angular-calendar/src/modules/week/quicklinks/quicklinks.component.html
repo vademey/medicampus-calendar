@@ -3,8 +3,8 @@
       navigateToLink('ref_id=' + event.lesson.iliasURL)
   ">
   <svg [ngStyle]="{
-      fill: event.lesson.hasLearningMaterial && event.lesson.iliasURL ? event.color?.primary : 'gray',
-      opacity: event.lesson.hasLearningMaterial && event.lesson.iliasURL ? '1' : '0.8'
+      fill: (event.lesson.hasLearningMaterial && event.lesson.iliasURL ? event.color?.primary : 'gray'),
+      opacity: (event.lesson.hasLearningMaterial && event.lesson.iliasURL ? '1' : '0.8')
     }" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="18px"
     height="18px">
     <path
@@ -55,9 +55,11 @@
 <!--<mat-icon [ngStyle]="{ 'color': color }">playlist_add_check</mat-icon>-->
 <!--</div>-->
 
-<div *ngIf="event.onSite && !event.online" class="mc-quicklink" (click)="navigateToLink('lesson/map/43')">
-  <svg [ngStyle]="{ fill: event.color?.primary }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px"
-    height="18px">
+<div *ngIf="event.onSite && !event.online" class="mc-quicklink"
+  (click)="event.room.roomLink && navigateToLink(event.room.roomLink)">
+  <svg
+    [ngStyle]="{ fill: (event.room.roomLink ? event.color?.primary : 'gray'), opacity: (event.room.roomLink ? '1' : '0.8') }"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px" height="18px">
     <path d="M0 0h24v24H0V0z" fill="none" />
     <path
       d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9z" />
@@ -80,9 +82,11 @@
   <!--<mat-icon [ngStyle]="{ 'color': color }" class="material-icons-outlined">ondemand_video</mat-icon>-->
 </div>
 
-<div *ngIf="event.onSite && event.online" class="mc-quicklink" (click)="navigateToLink('hybrid')">
-  <svg [ngStyle]="{ fill: event.color?.primary }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px"
-    height="26px" style="margin: auto;">
+<div *ngIf="event.onSite && event.online" class="mc-quicklink"
+  (click)="(event.room.roomLink || isLive) && navigateToLink('hybrid')">
+  <svg
+    [ngStyle]="{ fill: ((event.room.roomLink || isLive) ? event.color?.primary : 'gray'), opacity: ((event.room.roomLink || isLive) ? '1' : '0') }"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px" style="margin: auto;">
     <path d="M0 0h24v24H0V0z" fill="none" style="transform: scale(0.7);" />
     <!--<path xmlns="http://www.w3.org/2000/svg"
       d="M21 3H3c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.11-.9-2-2-2zm0 14H3V5h18v12zm-5-6l-7 4V7z"

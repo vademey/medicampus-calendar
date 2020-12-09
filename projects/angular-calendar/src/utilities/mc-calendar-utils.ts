@@ -98,6 +98,7 @@ export interface MCRoom {
     id: number;
     name: string;
     shortName: string;
+    roomLink: string;
 }
 
 export interface MCSubject {
