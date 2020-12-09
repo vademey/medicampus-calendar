@@ -85,7 +85,7 @@
 <div *ngIf="event.onSite && event.online" class="mc-quicklink"
   (click)="(event.room.roomLink || isLive) && navigateToLink('hybrid')">
   <svg
-    [ngStyle]="{ fill: ((event.room.roomLink || isLive) ? event.color?.primary : 'gray'), opacity: ((event.room.roomLink || isLive) ? '1' : '0') }"
+    [ngStyle]="{ fill: ((event.room.roomLink || isLive) ? event.color?.primary : 'gray'), opacity: ((event.room.roomLink || isLive) ? '1' : '0.8') }"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px" style="margin: auto;">
     <path d="M0 0h24v24H0V0z" fill="none" style="transform: scale(0.7);" />
     <!--<path xmlns="http://www.w3.org/2000/svg"
