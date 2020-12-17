@@ -1,9 +1,8 @@
 :host {
   display: flex;
-  padding: 10px 0;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  padding-top: 0;
+  padding: 0px 10px 10px 10px;
 
   .mc-quicklink {
     box-shadow: 0px 0px 4px 1px #ccc;
