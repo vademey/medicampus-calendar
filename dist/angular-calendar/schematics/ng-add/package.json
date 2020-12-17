@@ -162,20 +162,14 @@
     "positioning": "^2.0.1",
     "tslib": "^1.13.0"
   },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e",
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "main": "./dist/angular-calendar/bundles/angular-calendar.umd.js",
-  "module": "./dist/angular-calendar/fesm5/angular-calendar.js",
-  "es2015": "./dist/angular-calendar/fesm2015/angular-calendar.js",
-  "esm5": "./dist/angular-calendar/esm5/angular-calendar.js",
-  "esm2015": "./dist/angular-calendar/esm2015/angular-calendar.js",
-  "fesm5": "./dist/angular-calendar/fesm5/angular-calendar.js",
-  "fesm2015": "./dist/angular-calendar/fesm2015/angular-calendar.js",
-  "typings": "./dist/angular-calendar/angular-calendar.d.ts",
-  "metadata": "./dist/angular-calendar/angular-calendar.metadata.json",
-  "sideEffects": false
+  }
 }
